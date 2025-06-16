@@ -24,7 +24,9 @@
         "NSCameraUsageDescription": "This app needs access to camera to scan documents.",
         "NSPhotoLibraryUsageDescription": "This app needs access to photos to select PDF files.",
         "NSMicrophoneUsageDescription": "This app needs access to microphone for voice input.",
-        "UIBackgroundModes": ["remote-notification"]
+        "UIBackgroundModes": [
+          "remote-notification"
+        ]
       }
     },
     "android": {
@@ -71,10 +73,10 @@
         "origin": false
       },
       "eas": {
-        "projectId": "your-project-id"
+        "projectId": "77052866-95bf-4f8c-854e-03fab6e6f051"
       }
     },
-    "owner": "your-expo-username",
+    "owner": "madhav_1716",
     "runtimeVersion": {
       "policy": "appVersion"
     },
