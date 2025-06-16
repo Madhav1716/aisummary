@@ -1,110 +1,172 @@
-import { Image } from 'expo-image';
-import { Platform, StyleSheet } from 'react-native';
+import { Colors } from '@/constants/Colors';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import * as Haptics from 'expo-haptics';
+import { ScrollView, StyleSheet, Text, TouchableOpacity, useColorScheme, View } from 'react-native';
 
-import { Collapsible } from '@/components/Collapsible';
-import { ExternalLink } from '@/components/ExternalLink';
-import ParallaxScrollView from '@/components/ParallaxScrollView';
-import { ThemedText } from '@/components/ThemedText';
-import { ThemedView } from '@/components/ThemedView';
-import { IconSymbol } from '@/components/ui/IconSymbol';
+export default function HistoryScreen() {
+  const colorScheme = useColorScheme();
+  const isDark = colorScheme === 'dark';
 
-export default function TabTwoScreen() {
+  // Mock data for history items
+  const historyItems = [
+    {
+      id: '1',
+      title: 'Research Paper Summary',
+      date: '2024-03-20',
+      preview: 'A comprehensive analysis of machine learning algorithms...',
+    },
+    {
+      id: '2',
+      title: 'Business Report',
+      date: '2024-03-19',
+      preview: 'Quarterly financial analysis and market trends...',
+    },
+    {
+      id: '3',
+      title: 'Technical Documentation',
+      date: '2024-03-18',
+      preview: 'API documentation and implementation guidelines...',
+    },
+  ];
+
+  const handleItemPress = (id: string) => {
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+    // TODO: Navigate to summary details
+  };
+
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#D0D0D0', dark: '#353636' }}
-      headerImage={
-        <IconSymbol
-          size={310}
-          color="#808080"
-          name="chevron.left.forwardslash.chevron.right"
-          style={styles.headerImage}
-        />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Explore</ThemedText>
-      </ThemedView>
-      <ThemedText>This app includes example code to help you get started.</ThemedText>
-      <Collapsible title="File-based routing">
-        <ThemedText>
-          This app has two screens:{' '}
-          <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> and{' '}
-          <ThemedText type="defaultSemiBold">app/(tabs)/explore.tsx</ThemedText>
-        </ThemedText>
-        <ThemedText>
-          The layout file in <ThemedText type="defaultSemiBold">app/(tabs)/_layout.tsx</ThemedText>{' '}
-          sets up the tab navigator.
-        </ThemedText>
-        <ExternalLink href="https://docs.expo.dev/router/introduction">
-          <ThemedText type="link">Learn more</ThemedText>
-        </ExternalLink>
-      </Collapsible>
-      <Collapsible title="Android, iOS, and web support">
-        <ThemedText>
-          You can open this project on Android, iOS, and the web. To open the web version, press{' '}
-          <ThemedText type="defaultSemiBold">w</ThemedText> in the terminal running this project.
-        </ThemedText>
-      </Collapsible>
-      <Collapsible title="Images">
-        <ThemedText>
-          For static images, you can use the <ThemedText type="defaultSemiBold">@2x</ThemedText> and{' '}
-          <ThemedText type="defaultSemiBold">@3x</ThemedText> suffixes to provide files for
-          different screen densities
-        </ThemedText>
-        <Image source={require('@/assets/images/react-logo.png')} style={{ alignSelf: 'center' }} />
-        <ExternalLink href="https://reactnative.dev/docs/images">
-          <ThemedText type="link">Learn more</ThemedText>
-        </ExternalLink>
-      </Collapsible>
-      <Collapsible title="Custom fonts">
-        <ThemedText>
-          Open <ThemedText type="defaultSemiBold">app/_layout.tsx</ThemedText> to see how to load{' '}
-          <ThemedText style={{ fontFamily: 'SpaceMono' }}>
-            custom fonts such as this one.
-          </ThemedText>
-        </ThemedText>
-        <ExternalLink href="https://docs.expo.dev/versions/latest/sdk/font">
-          <ThemedText type="link">Learn more</ThemedText>
-        </ExternalLink>
-      </Collapsible>
-      <Collapsible title="Light and dark mode components">
-        <ThemedText>
-          This template has light and dark mode support. The{' '}
-          <ThemedText type="defaultSemiBold">useColorScheme()</ThemedText> hook lets you inspect
-          what the user&apos;s current color scheme is, and so you can adjust UI colors accordingly.
-        </ThemedText>
-        <ExternalLink href="https://docs.expo.dev/develop/user-interface/color-themes/">
-          <ThemedText type="link">Learn more</ThemedText>
-        </ExternalLink>
-      </Collapsible>
-      <Collapsible title="Animations">
-        <ThemedText>
-          This template includes an example of an animated component. The{' '}
-          <ThemedText type="defaultSemiBold">components/HelloWave.tsx</ThemedText> component uses
-          the powerful <ThemedText type="defaultSemiBold">react-native-reanimated</ThemedText>{' '}
-          library to create a waving hand animation.
-        </ThemedText>
-        {Platform.select({
-          ios: (
-            <ThemedText>
-              The <ThemedText type="defaultSemiBold">components/ParallaxScrollView.tsx</ThemedText>{' '}
-              component provides a parallax effect for the header image.
-            </ThemedText>
-          ),
-        })}
-      </Collapsible>
-    </ParallaxScrollView>
+    <ScrollView
+      style={[
+        styles.container,
+        { backgroundColor: isDark ? '#1a1a1a' : '#f5f5f5' }
+      ]}
+      contentContainerStyle={styles.contentContainer}
+    >
+      <View style={styles.header}>
+        <Text style={[styles.title, { color: isDark ? '#ffffff' : '#000000' }]}>
+          History
+        </Text>
+        <Text style={[styles.subtitle, { color: isDark ? '#a0a0a0' : '#666666' }]}>
+          Your past summaries
+        </Text>
+      </View>
+
+      {historyItems.map((item) => (
+        <TouchableOpacity
+          key={item.id}
+          style={[styles.historyCard, { backgroundColor: isDark ? '#2a2a2a' : '#ffffff' }]}
+          onPress={() => handleItemPress(item.id)}
+        >
+          <View style={styles.historyContent}>
+            <View style={styles.historyHeader}>
+              <MaterialCommunityIcons
+                name="file-pdf-box"
+                size={24}
+                color={Colors[colorScheme ?? 'light'].tint}
+              />
+              <View style={styles.historyTitleContainer}>
+                <Text style={[styles.historyTitle, { color: isDark ? '#ffffff' : '#000000' }]}>
+                  {item.title}
+                </Text>
+                <Text style={[styles.historyDate, { color: isDark ? '#a0a0a0' : '#666666' }]}>
+                  {item.date}
+                </Text>
+              </View>
+            </View>
+            <Text
+              style={[styles.historyPreview, { color: isDark ? '#a0a0a0' : '#666666' }]}
+              numberOfLines={2}
+            >
+              {item.preview}
+            </Text>
+          </View>
+        </TouchableOpacity>
+      ))}
+
+      {historyItems.length === 0 && (
+        <View style={styles.emptyState}>
+          <MaterialCommunityIcons
+            name="history"
+            size={48}
+            color={isDark ? '#a0a0a0' : '#666666'}
+          />
+          <Text style={[styles.emptyStateText, { color: isDark ? '#a0a0a0' : '#666666' }]}>
+            No summaries yet
+          </Text>
+          <Text style={[styles.emptyStateSubtext, { color: isDark ? '#808080' : '#999999' }]}>
+            Your summarized PDFs will appear here
+          </Text>
+        </View>
+      )}
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
-  headerImage: {
-    color: '#808080',
-    bottom: -90,
-    left: -35,
-    position: 'absolute',
+  container: {
+    flex: 1,
   },
-  titleContainer: {
+  contentContainer: {
+    padding: 20,
+  },
+  header: {
+    marginTop: 20,
+    marginBottom: 30,
+  },
+  title: {
+    fontSize: 32,
+    fontWeight: 'bold',
+    marginBottom: 8,
+  },
+  subtitle: {
+    fontSize: 16,
+  },
+  historyCard: {
+    borderRadius: 16,
+    marginBottom: 16,
+    overflow: 'hidden',
+    elevation: 2,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+  },
+  historyContent: {
+    padding: 16,
+  },
+  historyHeader: {
     flexDirection: 'row',
-    gap: 8,
+    alignItems: 'center',
+    marginBottom: 12,
+  },
+  historyTitleContainer: {
+    marginLeft: 12,
+    flex: 1,
+  },
+  historyTitle: {
+    fontSize: 16,
+    fontWeight: '600',
+    marginBottom: 4,
+  },
+  historyDate: {
+    fontSize: 12,
+  },
+  historyPreview: {
+    fontSize: 14,
+    lineHeight: 20,
+  },
+  emptyState: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 60,
+  },
+  emptyStateText: {
+    fontSize: 18,
+    fontWeight: '600',
+    marginTop: 16,
+    marginBottom: 8,
+  },
+  emptyStateSubtext: {
+    fontSize: 14,
   },
 });

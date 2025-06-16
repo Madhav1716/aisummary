@@ -1,50 +1,134 @@
-# Welcome to your Expo app 👋
+# AI PDF Summarizer
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+A full-stack application that uses AI to summarize PDF documents. Built with React Native/Expo for the frontend and Node.js/Express for the backend.
 
-## Get started
+## Features
 
-1. Install dependencies
+- PDF text extraction
+- AI-powered summarization
+- Cross-platform mobile support (iOS/Android)
+- Secure file handling
+- Rate limiting and security measures
 
+## Prerequisites
+
+- Node.js >= 18.0.0
+- npm or yarn
+- Expo CLI
+- OpenAI API key
+
+## Project Structure
+
+```
+.
+├── app/                 # Frontend React Native/Expo app
+├── backend/            # Express.js backend server
+├── components/         # Reusable React components
+├── constants/          # App constants and configuration
+├── hooks/             # Custom React hooks
+└── assets/            # Static assets
+```
+
+## Setup
+
+### Backend Setup
+
+1. Navigate to the backend directory:
+   ```bash
+   cd backend
+   ```
+
+2. Install dependencies:
    ```bash
    npm install
    ```
 
-2. Start the app
-
-   ```bash
-   npx expo start
+3. Create a `.env` file in the backend directory with the following variables:
+   ```
+   PORT=3000
+   NODE_ENV=production
+   ALLOWED_ORIGINS=https://your-frontend-domain.com
+   RATE_LIMIT_WINDOW_MS=900000
+   RATE_LIMIT_MAX_REQUESTS=100
+   OPENAI_API_KEY=your_openai_api_key
+   MAX_FILE_SIZE=10485760
+   UPLOAD_DIR=uploads
+   LOG_LEVEL=info
    ```
 
-In the output, you'll find options to open the app in a
+4. Start the development server:
+   ```bash
+   npm run dev
+   ```
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+### Frontend Setup
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+1. Install dependencies:
+   ```bash
+   npm install
+   ```
 
-## Get a fresh project
+2. Create a `.env` file in the root directory with your configuration:
+   ```
+   EXPO_PUBLIC_API_URL=http://localhost:3000
+   ```
 
-When you're ready, run:
+3. Start the development server:
+   ```bash
+   npm start
+   ```
 
-```bash
-npm run reset-project
-```
+## Production Deployment
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+### Backend Deployment
 
-## Learn more
+1. Build the backend:
+   ```bash
+   cd backend
+   npm install --production
+   ```
 
-To learn more about developing your project with Expo, look at the following resources:
+2. Set up environment variables on your hosting platform (e.g., Heroku, AWS, DigitalOcean)
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+3. Start the production server:
+   ```bash
+   npm start
+   ```
 
-## Join the community
+### Frontend Deployment
 
-Join our community of developers creating universal apps.
+1. Build the Expo app:
+   ```bash
+   expo build:android  # For Android
+   expo build:ios     # For iOS
+   ```
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+2. Follow the Expo build instructions to deploy to app stores
+
+## Security Considerations
+
+- All API endpoints are rate-limited
+- File uploads are restricted to PDFs only
+- CORS is configured to allow only specific origins
+- Helmet.js is used for security headers
+- File size limits are enforced
+- Environment variables are used for sensitive data
+
+## Monitoring and Maintenance
+
+- Health check endpoint available at `/health`
+- Morgan logging for request tracking
+- Error handling middleware for graceful error responses
+- Automatic file cleanup after processing
+
+## Contributing
+
+1. Fork the repository
+2. Create your feature branch
+3. Commit your changes
+4. Push to the branch
+5. Create a Pull Request
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.

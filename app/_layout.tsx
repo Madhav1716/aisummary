@@ -1,29 +1,28 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
-import { useFonts } from 'expo-font';
 import { Stack } from 'expo-router';
-import { StatusBar } from 'expo-status-bar';
-import 'react-native-reanimated';
-
-import { useColorScheme } from '@/hooks/useColorScheme';
+import { useColorScheme } from 'react-native';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 export default function RootLayout() {
-  const colorScheme = useColorScheme();
-  const [loaded] = useFonts({
-    SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
-  });
-
-  if (!loaded) {
-    // Async font loading only occurs in development.
-    return null;
-  }
+  const colorScheme = useColorScheme() ?? 'light';
 
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
+    <SafeAreaProvider>
+      <Stack
+        screenOptions={{
+          headerShown: false,
+          contentStyle: {
+            backgroundColor: colorScheme === 'dark' ? '#000' : '#fff',
+          },
+        }}
+      >
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="+not-found" />
+        <Stack.Screen name="chat" options={{ headerShown: false }} />
+        <Stack.Screen name="screens/chat-history" options={{ headerShown: false }} />
+        <Stack.Screen name="screens/select-pdf" options={{ headerShown: false }} />
+        <Stack.Screen name="screens/privacy-policy" options={{ headerShown: false }} />
+        <Stack.Screen name="screens/terms-of-service" options={{ headerShown: false }} />
+        <Stack.Screen name="screens/settings" options={{ headerShown: false }} />
       </Stack>
-      <StatusBar style="auto" />
-    </ThemeProvider>
+    </SafeAreaProvider>
   );
 }
