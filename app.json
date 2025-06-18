@@ -13,9 +13,7 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.yourcompany.aisummarizer",
@@ -24,9 +22,7 @@
         "NSCameraUsageDescription": "This app needs access to camera to scan documents.",
         "NSPhotoLibraryUsageDescription": "This app needs access to photos to select PDF files.",
         "NSMicrophoneUsageDescription": "This app needs access to microphone for voice input.",
-        "UIBackgroundModes": [
-          "remote-notification"
-        ]
+        "UIBackgroundModes": ["remote-notification"]
       }
     },
     "android": {
@@ -71,9 +67,6 @@
     "extra": {
       "router": {
         "origin": false
-      },
-      "eas": {
-        "projectId": "77052866-95bf-4f8c-854e-03fab6e6f051"
       }
     },
     "owner": "madhav_1716",
